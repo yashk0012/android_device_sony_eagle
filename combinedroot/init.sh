@@ -27,6 +27,7 @@ busybox mount -t proc proc /proc
 busybox mount -t sysfs sysfs /sys
 
 # trigger amber LED
+busybox echo 100 > ${BOOTREC_VIBRATOR}
 busybox echo 255 > ${BOOTREC_LED_RED}
 busybox echo 0 > ${BOOTREC_LED_GREEN}
 busybox echo 255 > ${BOOTREC_LED_BLUE}
