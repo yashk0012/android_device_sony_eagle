@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-DEVICE=tianchi
+DEVICE=eagle
 MANUFACTURER=sony
 
 if [[ -z "${ANDROIDFS_DIR}" ]]; then

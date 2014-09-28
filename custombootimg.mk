@@ -4,7 +4,7 @@ uncompressed_ramdisk := $(PRODUCT_OUT)/ramdisk.cpio
 $(uncompressed_ramdisk): $(INSTALLED_RAMDISK_TARGET)
 	zcat $< > $@
 
-INITSH := device/sony/tianchi/combinedroot/init.sh
+INITSH := device/sony/eagle/combinedroot/init.sh
 BOOTREC_DEVICE := $(PRODUCT_OUT)/recovery/bootrec-device
 
 SOMC_BOARD = $(shell echo $(TARGET_KERNEL_CONFIG) | sed -e "s/cm_//" | sed -e "s/_defconfig//")
