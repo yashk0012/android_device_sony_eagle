@@ -19,7 +19,7 @@ include device/sony/common/BoardConfigCommon.mk
 include device/sony/qcom-common/BoardConfigCommon.mk
 
 # Assert
-TARGET_OTA_ASSERT_DEVICE := D2303,eagle
+TARGET_OTA_ASSERT_DEVICE := D2303,D2305,D2306,eagle
 
 TARGET_SPECIFIC_HEADER_PATH += device/sony/eagle/include
 
