@@ -7,10 +7,9 @@ $(uncompressed_ramdisk): $(INSTALLED_RAMDISK_TARGET)
 INITSH := device/sony/eagle/combinedroot/init.sh
 BOOTREC_DEVICE := $(PRODUCT_OUT)/recovery/bootrec-device
 
-SOMC_BOARD = $(shell echo $(TARGET_KERNEL_CONFIG) | sed -e "s/cm_//" | sed -e "s/_defconfig//")
 KERNEL_CONFIG := $(KERNEL_OUT)/.config
 DTS_NAMES ?= msm8226
-DTS_FILES = $(wildcard $(TOP)/$(KERNEL_SRC)/arch/arm/boot/dts/msm8926-$(SOMC_BOARD).dts)
+DTS_FILES = $(wildcard $(TOP)/$(KERNEL_SRC)/arch/arm/boot/dts/msm8926*.dts)
 DTS_FILE = $(lastword $(subst /, ,$(1)))
 DTB_FILE = $(addprefix $(KERNEL_OUT)/arch/arm/boot/,$(patsubst %.dts,%.dtb,$(call DTS_FILE,$(1))))
 ZIMG_FILE = $(addprefix $(KERNEL_OUT)/arch/arm/boot/,$(patsubst %.dts,%-zImage,$(call DTS_FILE,$(1))))
