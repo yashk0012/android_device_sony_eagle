@@ -73,3 +73,7 @@ ro.qualcomm.sensors.georv=true
 
 # Start in cdma mode
 ro.telephony.default_network=9
+
+# Disable strict mode
+persist.sys.strictmode.visual=0
+persist.sys.strictmode.disable=1
