@@ -22,7 +22,7 @@ $(call inherit-product, vendor/cm/config/nfc_enhanced.mk)
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
 # Build fingerprints
-PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=2303 BUILD_FINGERPRINT=Sony/D2303/D2303:4.4.2/18.3.C.0.37/2n9_bg:user/release-keys PRIVATE_BUILD_DESC="D2303-user 4.4.2 18.3.C.0.37 2n9_bg release-keys"
+PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=D2303 BUILD_FINGERPRINT=Sony/D2303/D2303:4.4.2/18.3.C.0.37/2n9_bg:user/release-keys PRIVATE_BUILD_DESC="D2303-user 4.4.2 18.3.C.0.37 2n9_bg release-keys"
 
 PRODUCT_NAME := cm_eagle
 PRODUCT_DEVICE := eagle
