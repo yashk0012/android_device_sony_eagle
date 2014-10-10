@@ -1,1 +1,1 @@
-add_lunch_combo cm_eagle-eng
+add_lunch_combo cm_eagle-userdebug
