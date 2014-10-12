@@ -26,23 +26,39 @@ on init
     # See storage config details at http://source.android.com/tech/storage/
     mkdir /mnt/shell/emulated 0700 shell shell
     mkdir /storage/emulated 0555 root root
+    mkdir /storage/emulated/legacy 0555 root root
     mkdir /mnt/media_rw/sdcard1 0700 media_rw media_rw
-    mkdir /mnt/media_rw/usbdisk 0700 media_rw media_rw
-    mkdir /storage/sdcard1 0775 system system
-    mkdir /storage/usbdisk 0775 system system
+    mkdir /storage/sdcard1 0700 root root
 
     export EXTERNAL_STORAGE /storage/emulated/legacy
     export SECONDARY_STORAGE /storage/sdcard1
     export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
     export EMULATED_STORAGE_TARGET /storage/emulated
 
+    # removable storages, Mike new add.
+    mkdir /storage/removable 0050 system removable_rw
+
+    # External USB mass storage support
+    mkdir /mnt/media_rw/usbdisk 0700 media_rw media_rw
+    mkdir /storage/usbdisk 0700 system system
+    symlink /storage/usbdisk /usbdisk
+    symlink /storage/usbdisk /mnt/usbdisk
+    export EXTERNAL_STORAGE_USB /storage/usbdisk
+
     # Support legacy paths
     symlink /storage/emulated/legacy /sdcard
     symlink /storage/emulated/legacy /mnt/sdcard
     symlink /storage/emulated/legacy /storage/sdcard0
-    symlink /mnt/shell/emulated/0 /storage/emulated/legacy
-    symlink /storage/sdcard1 /sdcard1
-    symlink /storage/usbdisk /usbdisk
+    symlink /storage/sdcard1 /storage/removable/sdcard1
+    symlink /storage/usbdisk /storage/removable/usbdisk
+
+    # [VY5X] S AlexKuan Bug#908 Merge external storage related patch from SA77
+    #ifdef ORG_VER
+    #else
+    symlink /storage/sdcard1 /ext_card
+    symlink /storage/sdcard1 /mnt/ext_card
+    #endif
+    # [VY5X] E AlexKuan Bug#908 Merge external storage related patch from SA77
 
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
