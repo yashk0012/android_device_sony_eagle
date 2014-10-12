@@ -93,7 +93,12 @@ MAX_EGL_CACHE_SIZE := 2048*1024
 # NFC
 BOARD_NFC_CHIPSET := pn547
 
-# Wifi
+# WiFi
+WLAN_MODULES:
+	mkdir -p $(KERNEL_MODULES_OUT)/pronto
+	mv $(KERNEL_MODULES_OUT)/wlan.ko $(KERNEL_MODULES_OUT)/pronto/pronto_wlan.ko
+	ln -sf /system/lib/modules/pronto/pronto_wlan.ko $(TARGET_OUT)/lib/modules/wlan.ko
+
 BOARD_HAS_QCOM_WLAN              := true
 BOARD_WLAN_DEVICE                := qcwcn
 WPA_SUPPLICANT_VERSION           := VER_0_8_X
@@ -105,8 +110,8 @@ WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/wlan.ko"
 WIFI_DRIVER_MODULE_NAME          := "wlan"
 WIFI_DRIVER_FW_PATH_STA          := "sta"
 WIFI_DRIVER_FW_PATH_AP           := "ap"
-PRODUCT_PREBUILT_WEBVIEWCHROMIUM := true
 BOARD_USE_SONY_MACUPDATE := true
+TARGET_KERNEL_MODULES += WLAN_MODULES
 
 # Filesystem
 BOARD_FLASH_BLOCK_SIZE := 131072
@@ -126,4 +131,7 @@ TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_15x24.h\"
 DEVICE_RESOLUTION := 540x960
+
+# Skip chromium build
+PRODUCT_PREBUILT_WEBVIEWCHROMIUM := true
 
