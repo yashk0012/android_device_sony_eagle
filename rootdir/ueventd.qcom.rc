@@ -187,3 +187,20 @@
 /dev/uio0                 0660   system     system
 /dev/uio1                 0660   system     system
 /dev/uio2                 0660   system     system
+
+# S [CCI] KIONIX Accelerometer
+/sys/devices/f9924000.i2c/i2c-1/1-000f enable 0660 root input
+/sys/devices/f9924000.i2c/i2c-1/1-000f delay 0660 system input
+/sys/devices/f9924000.i2c/i2c-1/1-000f direct 0660 root input
+/sys/devices/f9924000.i2c/i2c-1/1-000f data 0440 root input
+/sys/devices/f9924000.i2c/i2c-1/1-000f cali 0660 system input
+/sys/devices/f9924000.i2c/i2c-1/1-000f offset 0660 system input
+# E [CCI] KIONIX Accelerometer
+# S [CCI] MEMSIC ECompass
+/dev/mmc3416x    0660    system    input
+/dev/ecompass_ctrl    0660    system    input
+# E [CCI] MEMSIC ECompass
+
+# S:LE, for CTS permission test
+/dev/cci_kernel_info              0660   root       root
+# E:LE

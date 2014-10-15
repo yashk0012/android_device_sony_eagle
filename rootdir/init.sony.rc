@@ -38,13 +38,8 @@ on fs
     # SONY: Start early TA-users
     exec /system/bin/taimport
 
-    mkdir /mnt/idd 0751 sony_idd sony_idd
-
     mount_all fstab.qcom
     setprop ro.crypto.fuse_sdcard true
-
-    chown sony_idd sony_idd /mnt/idd
-    chmod 0751 /mnt/idd
 
     # Create a tmpfs for dynamic network mounting
     mkdir /storage/remote  0700 root system
@@ -96,9 +91,90 @@ on boot
     # Do not power down SIM in flight mode (required for Wi-Fi EAP-SIM)
     setprop persist.radio.apm_sim_not_pwdn 1
 
+    # permissions for NFC
+    setprop ro.nfc.port "I2C"
+    chmod 0600 /dev/pn544
+    chown nfc nfc /dev/pn544
+
     # Panel backlight
-    chown system system /sys/class/leds/lm3630-lcd-bl/brightness
-    chmod 660 /sys/class/leds/lm3630-lcd-bl/brightness
+    chown system system /sys/class/leds/wled:backlight/brightness
+    chmod 660 /sys/class/leds/wled:backlight/brightness
+
+    chown system system /sys/class/timed_output/vibrator/enable
+    chown system system /sys/class/leds/keyboard-backlight/brightness
+    chown system system /sys/class/leds/lcd-backlight/brightness
+    chown system system /sys/class/leds/button-backlight/brightness
+    chown system system /sys/class/leds/jogball-backlight/brightness
+    #S:EllenLu 20140123 ,[LED]add for SOMC Illumination
+    #chown system system /sys/class/leds/red/brightness
+    #chown system system /sys/class/leds/green/brightness
+    #chown system system /sys/class/leds/blue/brightness
+    chown root system /sys/class/leds/rgb_red/brightness
+    chown root system /sys/class/leds/rgb_green/brightness
+    chown root system /sys/class/leds/rgb_blue/brightness
+    #chown root system /sys/class/leds/rgb_red/flashmode
+    #chown root system /sys/class/leds/rgb_green/flashmode
+    #chown root system /sys/class/leds/rgb_blue/flashmode
+    #chown root system /sys/class/leds/rgb_red/onms
+    #chown root system /sys/class/leds/rgb_green/onms
+    #chown root system /sys/class/leds/rgb_blue/onms
+    #chown root system /sys/class/leds/rgb_red/offms
+    #chown root system /sys/class/leds/rgb_green/offms
+    #chown root system /sys/class/leds/rgb_blue/offms
+    #chown root system /sys/class/leds/rgb_red/tunebrightness
+    #chown root system /sys/class/leds/rgb_green/tunebrightness
+    #chown root system /sys/class/leds/rgb_blue/tunebrightness
+
+    # Mike, remove Ellen's patch, using Qcom's original design.
+    chown root system /sys/class/leds/rgb_red/blink
+    chown root system /sys/class/leds/rgb_red/duty_pcts
+    chown root system /sys/class/leds/rgb_red/ramp_step_ms
+    chown root system /sys/class/leds/rgb_green/blink
+    chown root system /sys/class/leds/rgb_green/duty_pcts
+    chown root system /sys/class/leds/rgb_green/ramp_step_ms
+    chown root system /sys/class/leds/rgb_blue/blink
+    chown root system /sys/class/leds/rgb_blue/duty_pcts
+    chown root system /sys/class/leds/rgb_blue/ramp_step_ms
+
+    chown root system /sys/class/illumination/0
+    chown root system /sys/class/illumination/1
+    chown root system /sys/class/illumination/2
+    chown root system /sys/class/illumination/3
+    chown root system /sys/class/illumination/4
+    chown root system /sys/class/illumination/5
+    chown root system /sys/class/illumination/6
+    chown root system /sys/class/illumination/7
+    chown root system /sys/class/illumination/8
+    #E:EllenLu 20140123 ,[LED]add for SOMC Illumination
+    # Mike, temp for all R/W permission for T1/T2
+    chmod 0664 /sys/class/leds/rgb_red/brightness
+    chmod 0664 /sys/class/leds/rgb_green/brightness
+    chmod 0664 /sys/class/leds/rgb_blue/brightness
+    chmod 0664 /sys/class/leds/rgb_red/flashmode
+    chmod 0664 /sys/class/leds/rgb_green/flashmode
+    chmod 0664 /sys/class/leds/rgb_blue/flashmode
+    chmod 0664 /sys/class/leds/rgb_red/onms
+    chmod 0664 /sys/class/leds/rgb_green/onms
+    chmod 0664 /sys/class/leds/rgb_blue/onms
+    chmod 0664 /sys/class/leds/rgb_red/offms
+    chmod 0664 /sys/class/leds/rgb_green/offms
+    chmod 0664 /sys/class/leds/rgb_blue/offms
+    chmod 0664 /sys/class/leds/rgb_red/tunebrightness
+    chmod 0664 /sys/class/leds/rgb_green/tunebrightness
+    chmod 0664 /sys/class/leds/rgb_blue/tunebrightness
+    chmod 0664 /sys/class/illumination/0
+    chmod 0664 /sys/class/illumination/1
+    chmod 0664 /sys/class/illumination/2
+    chmod 0664 /sys/class/illumination/3
+    chmod 0664 /sys/class/illumination/4
+    chmod 0664 /sys/class/illumination/5
+    chmod 0664 /sys/class/illumination/6
+    chmod 0664 /sys/class/illumination/7
+    chmod 0664 /sys/class/illumination/8
+    # Mike, end, temp for T1/T2
+
+# [CCI] MEMSIC sensor
+mkdir /data/misc/sensors 0777 system system
 
 # SONY: TrimArea Daemon
 # Last 2 args: start block(blk size 128k), number of blocks(partitionsize(kb)/128(kb))
@@ -113,10 +189,12 @@ service updatemiscta /system/bin/updatemiscta
     user root
     oneshot
 
-service illumination /system/bin/illumination_service
-    socket illumination stream 0660 root system
-    class core
-    user root
+# Mike 20140206, add illumination daemon
+service led_service /system/bin/led_service
+    class main
+    socket led_socket stream 660 system system
+    user system
+    group system
 
 # Trim Area QMI service
 service ta_qmi_service /system/bin/ta_qmi_service
@@ -133,19 +211,6 @@ service scd /system/bin/scd
     user system
     group system
 
-# Sensor calibration
-on property:service.acccalib.start=service_setting
-    exec /system/bin/acc_cal_data_manager service_setting
-
-on property:service.calib.start=service_setting
-    exec /system/bin/cal_data_manager service_setting
-
-on property:service.proxcalib.start=service_setting
-    exec /system/bin/prox_cal_data_manager service_setting
-
-on property:service.proxcalib.start=service_setting_default
-    exec /system/bin/prox_cal_data_manager service_setting_default
-
 # Start suntrold
 service suntrold /system/bin/suntrold
     user system
@@ -159,12 +224,6 @@ service credmgrd /system/bin/credmgrd
     group system
     socket credmgr stream 0660 system system
     class main
-
-# Start system_monitor
-service system_monitor /system/bin/system_monitor
-    socket sysmon stream 0660 root system
-    class core
-    user root
 
 # bugreport is triggered by holding down volume down, volume up and power
 service bugreport /system/bin/dumpstate -d -p -B \

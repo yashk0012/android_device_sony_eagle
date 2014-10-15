@@ -11,6 +11,7 @@ bin/gsiff_daemon
 bin/hci_qcomm_init
 bin/hvdcp
 bin/irsc_util
+bin/led_service
 bin/mm-pp-daemon
 bin/mm-qcamera-daemon
 bin/mpdecision
@@ -77,7 +78,6 @@ etc/firmware/cmnlib.mdt
 etc/firmware/cpp_firmware_v1_1_1.fw
 etc/firmware/cpp_firmware_v1_1_6.fw
 etc/firmware/cpp_firmware_v1_2_0.fw
-etc/firmware/cyttsp4_fw.bin
 etc/firmware/leia_pfp_470.fw
 etc/firmware/leia_pm4_470.fw
 etc/firmware/mba.b00
