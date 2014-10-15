@@ -21,6 +21,7 @@ COMMON_PATH := device/sony/eagle
 
 DEVICE_PACKAGE_OVERLAYS += $(COMMON_PATH)/overlay
 
+BOARD_HAVE_RADIO := true
 # Permissions
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
@@ -210,6 +211,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.gps.qc_nlp_in_use=1 \
     persist.loc.nlp_name=com.qualcomm.services.location \
     ro.gps.agps_provider=1
+
+# Radio
+ifneq ($(BOARD_HAVE_RADIO),false)
+    DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay-radio
+    $(call inherit-product, $(LOCAL_PATH)/radio.mk)
+endif
 
 # SIM Props
 PRODUCT_PROPERTY_OVERRIDES += \

@@ -2,8 +2,6 @@
 # system.prop for msm8226
 #
 
-rild.libpath=/vendor/lib/libril-qc-qmi-1.so
-
 debug.mdpcomp.logs=0
 persist.demo.hdmirotationlock=false
 
@@ -11,7 +9,6 @@ persist.demo.hdmirotationlock=false
 # system props for the data modules
 #
 ro.use_data_netmgrd=true
-persist.data.netmgrd.qos.enable=true
 ro.data.large_tcp_window_size=true
 
 #system props for time-services
@@ -22,11 +19,6 @@ persist.timed.enable=true
 #
 # 196608 is decimal for 0x30000 to report version 3
 ro.opengles.version=196608
-
-#
-# System props for telephony
-# System prop to turn on CdmaLTEPhone always
-telephony.lteOnCdmaDevice=1
 
 #
 #snapdragon value add features
@@ -54,9 +46,6 @@ av.offload.enable=false
 #enable dsp gapless mode by default
 audio.offload.gapless.enabled=true
 
-# Modem power save enabled
-persist.radio.add_power_save=1
-
 # aDSP sensors
 ro.qualcomm.sensors.qmd=true
 debug.qualcomm.sns.hal=w
@@ -71,6 +60,19 @@ ro.qc.sensors.step_detector=true
 ro.qc.sensors.step_counter=true
 ro.qualcomm.sensors.georv=true
 
+rild.libargs=-d /dev/smd0
+persist.rild.nitz_plmn=
+persist.rild.nitz_long_ons_0=
+persist.rild.nitz_long_ons_1=
+persist.rild.nitz_long_ons_2=
+persist.rild.nitz_long_ons_3=
+persist.rild.nitz_short_ons_0=
+persist.rild.nitz_short_ons_1=
+persist.rild.nitz_short_ons_2=
+persist.rild.nitz_short_ons_3=
+ril.subscription.types=NV,RUIM
+DEVICE_PROVISIONED=1
+persist.radio.msgtunnel.start=false
 # Start in cdma mode
 ro.telephony.default_network=9
 

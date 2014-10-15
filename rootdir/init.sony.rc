@@ -14,6 +14,9 @@
 # limitations under the License.
 #
 
+on early-init
+    chmod 666 /proc/cmdline
+
 on init
     # Enable subsystem ramdump (Silent Reboot)
     write /sys/bus/msm_subsys/devices/subsys0/restart_level "RELATED"
@@ -29,17 +32,25 @@ on init
     mkdir /dev/socket/scd 0755 system system
 
 on fs
+
+    mount_all fstab.qcom
+    setprop ro.crypto.fuse_sdcard true
+    wait /dev/block/platform/msm_sdcc.1/by-name/persist
+    mount ext4 /dev/block/platform/msm_sdcc.1/by-name/persist /persist nosuid nodev barrier=1
+
     mkdir /lta-label 0555 system system
-    wait /dev/block/platform/msm_sdcc.1/by-name/LTALabel
     mount ext4 /dev/block/platform/msm_sdcc.1/by-name/LTALabel /lta-label nosuid nodev noatime noexec ro barrier=0
     chown system system /lta-label
     chmod 0555 /lta-label
 
-    # SONY: Start early TA-users
-    exec /system/bin/taimport
+    wait /dev/block/platform/msm_sdcc.1/by-name/modem
+    mount ext4 /dev/block/platform/msm_sdcc.1/by-name/modem /firmware ro shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337
 
-    mount_all fstab.qcom
-    setprop ro.crypto.fuse_sdcard true
+    # TA support
+    class_start trimarea
+    start tad_static
+    exec /sbin/wait4tad_static
+    exec /system/bin/taimport
 
     # Create a tmpfs for dynamic network mounting
     mkdir /storage/remote  0700 root system
