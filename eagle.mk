@@ -100,7 +100,8 @@ PRODUCT_PACKAGES += \
     hwcomposer.msm8226 \
     gralloc.msm8226 \
     copybit.msm8226 \
-    memtrack.msm8226
+    memtrack.msm8226 \
+    liboverlay
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
