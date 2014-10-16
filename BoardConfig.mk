@@ -42,7 +42,7 @@ TARGET_GLOBAL_CPPFLAGS += -mfpu=neon-vfpv4 -mfloat-abi=softfp
 COMMON_GLOBAL_CFLAGS += -D__ARM_USE_PLD -D__ARM_CACHE_LINE_SIZE=64
 
 # Hardware Features
-# BOARD_HARDWARE_CLASS := device/sony/eagle/cmhw
+BOARD_HARDWARE_CLASS := device/sony/eagle/cmhw
 
 # Kernel information
 BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 vmalloc=400M zcache
