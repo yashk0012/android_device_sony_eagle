@@ -33,8 +33,15 @@ TARGET_BOARD_PLATFORM := msm8226
 BOARD_VENDOR_PLATFORM := yukon
 
 # Architecture
-# Purposefully krait due to lack of cortex-a7 optimizations in clang
+TARGET_ARCH := arm
+TARGET_ARCH_VARIANT := armv7-a-neon
+TARGET_CPU_ABI := armeabi-v7a
+TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_VARIANT := krait
+
+# I'm not sure about SMP in CPU
+# but probably we have it
+# TARGET_CPU_SMP := true
 
 # Flags
 TARGET_GLOBAL_CFLAGS += -mfpu=neon-vfpv4 -mfloat-abi=softfp
