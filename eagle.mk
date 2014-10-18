@@ -160,6 +160,7 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/system/etc/sensor_def_qcomdev.conf:system/etc/sensor_def_qcomdev.conf \
     $(COMMON_PATH)/rootdir/system/etc/sensor_def_somc.conf:system/etc/sensor_def_somc.conf \
     $(COMMON_PATH)/rootdir/system/etc/sensors_calib.conf:system/etc/sensors_calib.conf \
+    $(COMMON_PATH)/rootdir/system/etc/sensors_settings:system/etc/sensors_settings \
 
 # System Monitor (Thermal Control)
 PRODUCT_COPY_FILES += \
