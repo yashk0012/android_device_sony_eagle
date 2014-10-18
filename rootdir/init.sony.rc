@@ -169,6 +169,11 @@ service updatemiscta /system/bin/updatemiscta
     user root
     oneshot
 
+# [CCI] MEMSIC sensor daemon
+service memsicd /system/bin/memsicd
+    class main
+    oneshot
+
 # Mike 20140206, add illumination daemon
 service led_service /system/bin/led_service
     class main

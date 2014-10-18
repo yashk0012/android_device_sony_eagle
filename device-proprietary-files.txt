@@ -12,6 +12,7 @@ bin/hci_qcomm_init
 bin/hvdcp
 bin/irsc_util
 bin/led_service
+bin/memsicd
 bin/mm-pp-daemon
 bin/mm-qcamera-daemon
 bin/mpdecision
