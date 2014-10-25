@@ -94,6 +94,8 @@ on early-boot
     start sct_service
 
 on boot
+    start qcamerasvr
+
     exec /system/bin/taimport property
 
     # Enable Wi-Fi EAP SIM
@@ -213,6 +215,12 @@ service suntrold /system/bin/suntrold
     group system
     oneshot
     class main
+
+#start camera server as daemon
+service qcamerasvr /system/bin/mm-qcamera-daemon
+    class late_start
+    user camera
+    group camera system inet input graphics
 
 # Start Credential manager daemon
 service credmgrd /system/bin/credmgrd

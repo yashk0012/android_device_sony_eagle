@@ -401,12 +401,6 @@ on property:persist.usb.hvdcp.detect=false
 service qcomsysd /system/bin/qcom-system-daemon
     class main
 
-#start camera server as daemon
-service qcamerasvr /system/bin/mm-qcamera-daemon
-    class late_start
-    user camera
-    group camera system inet input graphics
-
 # Allow usb charging to be disabled persistently
 on property:persist.usb.chgdisabled=1
    write /sys/class/power_supply/battery/charging_enabled 0
