@@ -143,8 +143,8 @@ framework/qcnvitems.jar
 framework/qcrilhook.jar
 lib/egl/egl.cfg
 lib/egl/libGLES_android.so
-lib/hw/camera.msm8226.so
-lib/hw/lights.msm8226.so
+lib/hw/camera.msm8226.so:lib/hw/camera.vendor.msm8226.so
+lib/hw/lights.msm8226.so:lib/hw/lights.vendor.msm8226.so
 lib/hw/nfc_nci_pn547.msm8226.so
 lib/libMiscTaAccessor.so
 lib/lib_asb_tee.so
