@@ -218,10 +218,6 @@ ifneq ($(BOARD_HAVE_RADIO),false)
     $(call inherit-product, $(LOCAL_PATH)/radio.mk)
 endif
 
-# SIM Props
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.radio.apm_sim_not_pwdn=1 \
-
 # call dalvik heap config
 $(call inherit-product-if-exists, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
 
