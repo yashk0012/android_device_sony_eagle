@@ -22,33 +22,26 @@ COMMON_PATH := device/sony/eagle
 DEVICE_PACKAGE_OVERLAYS += $(COMMON_PATH)/overlay
 
 BOARD_HAVE_RADIO := true
+
 # Permissions
 PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
-    frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
-    frameworks/native/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
     frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
     frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
-    frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml \
-    frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
-    frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
-    frameworks/native/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml \
-    frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
     frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
     frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
-    frameworks/native/data/etc/android.hardware.sensor.stepcounter.xml:system/etc/permissions/android.hardware.sensor.stepcounter.xml \
-    frameworks/native/data/etc/android.hardware.sensor.stepdetector.xml:system/etc/permissions/android.hardware.sensor.stepdetector.xml \
-    frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
+    frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
     frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
+    frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
+    frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
     packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml \
-    frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
-    frameworks/native/data/etc/com.android.nfc_extras.xml:system/etc/permissions/com.android.nfc_extras.xml \
-    frameworks/native/data/etc/com.nxp.mifare.xml:system/etc/permissions/com.nxp.mifare.xml \
+    frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
+    frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml \
+    frameworks/native/data/etc/com.android.nfc_extras.xml:system/etc/permissions/com.android.nfc_extras.xml
 
 # This device is xhdpi.
 PRODUCT_AAPT_CONFIG := normal hdpi xhdpi
@@ -62,11 +55,25 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/init.sony.usb.rc:root/init.sony.usb.rc \
     $(COMMON_PATH)/rootdir/ueventd.qcom.rc:root/ueventd.qcom.rc
 
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/init.class_main.sh:root/init.class_main.sh \
+    $(COMMON_PATH)/rootdir/system/etc/init.qcom.bt.sh:system/etc/init.qcom.bt.sh \
+    $(COMMON_PATH)/rootdir/system/etc/init.qcom.fm.sh:system/etc/init.qcom.fm.sh
+
 # Keys and Touchscreens
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/system/usr/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
     $(COMMON_PATH)/rootdir/system/usr/keylayout/qwerty.kl:system/usr/keylayout/qwerty.kl \
     $(COMMON_PATH)/rootdir/system/usr/keylayout/synaptics_rmi4_i2c.kl:system/usr/keylayout/synaptics_rmi4_i2c.kl
+
+# Touchpad
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/system/usr/idc/qwerty2.idc:system/usr/idc/qwerty2.idc \
+    $(COMMON_PATH)/rootdir/system/usr/idc/qwerty.idc:system/usr/idc/qwerty.idc
+
+# Thermal
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/system/etc/thermal-engine-8226.conf:system/etc/thermal-engine-8226.conf
 
 # Device specific part for two-stage boot
 PRODUCT_COPY_FILES += \
@@ -78,18 +85,25 @@ PRODUCT_PACKAGES += \
 
 # Sbin
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/charger:root/charger \
     $(COMMON_PATH)/rootdir/sbin/wait4tad_static:root/sbin/wait4tad_static \
     $(COMMON_PATH)/rootdir/sbin/tad_static:root/sbin/tad_static
 
+PRODUCT_PACKAGES += \
+    charger \
+    charger_res_images \
+    libnl_2 \
+    libtinyxml
+
 # Audio
 PRODUCT_PACKAGES += \
-    audiod \
-    audio.a2dp.default \
+    alsa.msm8226 \
+    audio_policy.msm8226 \
     audio.primary.msm8226 \
-    audio.r_submix.default \
+    audio.a2dp.default \
     audio.usb.default \
-    audio_policy.msm8226
+    audio.r_submix.default \
+    libaudio-resampler \
+    tinymix
 
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/system/etc/audio_effects.conf:system/etc/audio_effects.conf \
@@ -101,8 +115,8 @@ PRODUCT_PACKAGES += \
     hwcomposer.msm8226 \
     gralloc.msm8226 \
     copybit.msm8226 \
-    memtrack.msm8226 \
-    liboverlay
+    libqdMetaData \
+    memtrack.msm8226
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
@@ -113,15 +127,14 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/system/etc/init.qcom.fm.sh:system/etc/init.qcom.fm.sh
 
 # GPS
+PRODUCT_PACKAGES += \
+    gps.msm8226
+
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/gps/flp.conf:system/etc/flp.conf \
     $(COMMON_PATH)/gps/gps.conf:system/etc/gps.conf \
     $(COMMON_PATH)/gps/izat.conf:system/etc/izat.conf \
     $(COMMON_PATH)/gps/sap.conf:system/etc/sap.conf
-
-PRODUCT_PACKAGES += \
-    com.qualcomm.location \
-    gps.msm8226
 
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/system/etc/msap.conf:system/etc/msap.conf \
@@ -138,7 +151,6 @@ PRODUCT_PACKAGES += \
     NfcNci \
     Tag \
     com.android.nfc_extras
-#    nfc_nci.msm8226 \
 
 # NFCEE access control
 NFCEE_ACCESS_PATH := $(COMMON_PATH)/rootdir/system/etc/nfcee_access.xml
@@ -158,10 +170,7 @@ PRODUCT_COPY_FILES += \
 
 # Sensors
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/system/etc/sensor_def_qcomdev.conf:system/etc/sensor_def_qcomdev.conf \
-    $(COMMON_PATH)/rootdir/system/etc/sensor_def_somc.conf:system/etc/sensor_def_somc.conf \
-    $(COMMON_PATH)/rootdir/system/etc/sensors_calib.conf:system/etc/sensors_calib.conf \
-    $(COMMON_PATH)/rootdir/system/etc/sensors_settings:system/etc/sensors_settings \
+    $(COMMON_PATH)/rootdir/system/etc/sensor_def_qcomdev.conf:system/etc/sensor_def_qcomdev.conf
 
 # System Monitor (Thermal Control)
 PRODUCT_COPY_FILES += \
@@ -169,12 +178,21 @@ PRODUCT_COPY_FILES += \
 
 # USB
 PRODUCT_PACKAGES += \
+    librs_jni \
     com.android.future.usb.accessory
 
 # WiFi
 PRODUCT_PACKAGES += \
     mac-update \
     wcnss_service
+
+PRODUCT_PACKAGES += \
+    qcom.fmradio \
+    libqcomfm_jni \
+    FM2 \
+    FMRecord
+
+PRODUCT_PACKAGES += qcmediaplayer
 
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/system/etc/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
@@ -196,31 +214,52 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.adb.secure=0 \
     ro.debuggable=1 \
 
-# Bluetooth
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.qualcomm.bt.hci_transport=smd
-
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sf.lcd_density=240
 
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.qualcomm.cabl=0 \
+    persist.fuse_sdcard=true \
+    ro.cwm.enable_key_repeat=true \
+    persist.debug.wfd.enable=1 \
+    persist.sys.wfd.virtual=0 \
+    ro.qualcomm.bt.hci_transport=smd \
+    debug.composition.type=dyn
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    qcom.audio.init=complete \
+    af.resampler.quality=255 \
+    persist.audio.fluence.mode=endfire \
+    persist.audio.vr.enable=false \
+    persist.audio.handset.mic=analog \
+    persist.audio.lowlatency.rec=false \
+    media.aac_51_output_enabled=true \
+    ro.qc.sdk.audio.ssr=false \
+    ro.qc.sdk.audio.fluencetype=none \
+    lpa.decode=true \
+    audio.gapless.playback.disable=true
+
 # GPS
 PRODUCT_PROPERTY_OVERRIDES += \
+    persist.gps.qmienabled=true \
     ro.qc.sdk.izat.premium_enabled=1 \
-    ro.qc.sdk.izat.service_mask=0x0 \
-    persist.gps.qc_nlp_in_use=1 \
-    persist.loc.nlp_name=com.qualcomm.services.location \
+    ro.qc.sdk.izat.service_mask=0x5 \
+    persist.gps.qc_nlp_in_use=0 \
     ro.gps.agps_provider=1
 
-# Radio
 ifneq ($(BOARD_HAVE_RADIO),false)
-    DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay-radio
-    $(call inherit-product, $(LOCAL_PATH)/radio.mk)
+    DEVICE_PACKAGE_OVERLAYS += $(COMMON_PATH)/overlay-radio
+    $(call inherit-product, $(COMMON_PATH)/radio.mk)
 endif
+
+# SIM Props
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.radio.apm_sim_not_pwdn=1 \
 
 # call dalvik heap config
 $(call inherit-product-if-exists, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
 
 # Include non-opensource parts
-$(call inherit-product, vendor/sony/eagle/eagle-vendor-blobs.mk)
+$(call inherit-product, vendor/sony/eagle/eagle-vendor.mk)
 

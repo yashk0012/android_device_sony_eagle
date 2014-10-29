@@ -18,6 +18,8 @@ include device/sony/common/BoardConfigCommon.mk
 # inherit from qcom-common
 include device/sony/qcom-common/BoardConfigCommon.mk
 
+USE_CAMERA_STUB := false
+
 # Assert
 TARGET_OTA_ASSERT_DEVICE := D2303,D2305,D2306,eagle
 
@@ -38,10 +40,6 @@ TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_VARIANT := krait
-
-# I'm not sure about SMP in CPU
-# but probably we have it
-# TARGET_CPU_SMP := true
 
 # Flags
 TARGET_GLOBAL_CFLAGS += -mfpu=neon-vfpv4 -mfloat-abi=softfp
@@ -71,6 +69,9 @@ TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 # Audio
 BOARD_USES_ALSA_AUDIO := true
 
+# FM Radio
+QCOM_FM_ENABLED := true
+
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_QCOM := true
@@ -92,9 +93,6 @@ BOARD_CHARGER_ENABLE_SUSPEND := true
 
 # Dumpstate
 BOARD_LIB_DUMPSTATE := libdumpstate.sony
-
-# GPS
-TARGET_PROVIDES_GPS_LOC_API := true
 
 # Graphics
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
