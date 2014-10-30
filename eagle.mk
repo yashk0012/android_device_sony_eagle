@@ -186,13 +186,17 @@ PRODUCT_PACKAGES += \
     mac-update \
     wcnss_service
 
+# FM Radio
 PRODUCT_PACKAGES += \
     qcom.fmradio \
     libqcomfm_jni \
     FM2 \
     FMRecord
 
-PRODUCT_PACKAGES += qcmediaplayer
+# Misc
+PRODUCT_PACKAGES += \
+    qcmediaplayer \
+    libnetcmdiface
 
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/system/etc/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
