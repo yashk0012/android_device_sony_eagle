@@ -12,3 +12,18 @@ persist.rild.nitz_short_ons_0=
 persist.rild.nitz_short_ons_1=
 persist.rild.nitz_short_ons_2=
 persist.rild.nitz_short_ons_3=
+
+# Sensors
+
+ro.qualcomm.sensors.qmd=true
+debug.qualcomm.sns.hal=w
+ro.qc.sdk.sensors.gestures=false
+ro.qc.sensors.max_accel_rate=false
+ro.qc.sensors.max_gyro_rate=false
+ro.qc.sensors.max_mag_rate=false
+ro.qc.sensors.smgr_mag_cal_en=true
+ro.qualcomm.sensors.pedometer=false
+ro.qualcomm.sensors.pam=false
+ro.qualcomm.sensors.scrn_ortn=false
+ro.qualcomm.sensors.georv=true
+ro.qualcomm.sensors.smd=sony
