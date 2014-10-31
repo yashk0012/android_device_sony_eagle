@@ -73,6 +73,11 @@ void ds_properties()
         property_set("persist.radio.dont_use_dsd", "true");
 }
 
+void lte_properties()
+{
+        property_set("ro.telephony.default_network", "9");
+}
+
 void vendor_load_properties()
 {
     char device[PROP_VALUE_MAX];
