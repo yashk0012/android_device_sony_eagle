@@ -27,6 +27,24 @@
    IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+/*
+D2302
+Dual SIM: Yes
+LTE: No
+
+D2303 (Global)
+Dual SIM: No
+LTE: Yes
+
+D2305
+Dual SIM: No
+LTE: No
+
+D2306 (America)
+Dual SIM: No
+LTE: Yes
+*/
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <fcntl.h>
@@ -93,17 +111,18 @@ void vendor_load_properties()
     property_set("ro.product.model", modelnumber);
 
     if (strstr(modelnumber, "D2302")) {
+        ds_properties();
         property_set("ro.build.description", "D2302-user 18.3.C.0.37 2n9_bg release-keys");
         property_set("ro.build.fingerprint", "Sony/D2302/D2302:4.4.2/18.3.C.0.37/2n9_bg:user/release-keys");
     } else if (strstr(modelnumber, "D2303")) {
+        lte_properties();
         property_set("ro.build.description", "D2303-user 18.3.C.0.37 2n9_bg release-keys");
         property_set("ro.build.fingerprint", "Sony/D2303/D2303:4.4.2/18.3.C.0.37/2n9_bg:user/release-keys");
     } else if (strstr(modelnumber, "D2305")) {
-        ds_properties();
         property_set("ro.build.description", "D2305-user 18.3.C.0.37 2n9_bg release-keys");
         property_set("ro.build.fingerprint", "Sony/D2305/D2305:4.4.2/18.3.C.0.37/2n9_bg:user/release-keys");
     } else if (strstr(modelnumber, "D2306")) {
-        ds_properties();
+        lte_properties();
         property_set("ro.build.description", "D2306-user 18.3.C.0.37 2n9_bg release-keys");
         property_set("ro.build.fingerprint", "Sony/D2306/2306:4.4.2/18.3.C.0.37/2n9_bg:user/release-keys");
     };
