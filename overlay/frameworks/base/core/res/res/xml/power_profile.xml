@@ -29,9 +29,6 @@
         <value>998400</value>
         <value>1094400</value>
         <value>1190400</value>
-        <value>1305600</value>
-        <value>1344000</value>
-        <value>1401600</value>
     </array>
     <item name="cpu.idle">1.94</item>
     <array name="cpu.active">
